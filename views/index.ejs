@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Materialize Note</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+  <link href="bower_components/materialize/dist/css/materialize.css" type="text/css" rel="stylesheet"
+        media="screen,projection" />
+  <link href="stylesheets/style.css" type="text/css" rel="stylesheet"
+        media="screen,projection" />
+</head>
+<body ng-app="ngApp" ng-controller="appCtrl as appCtrl">
+<nav class="teal accent-4" role="navigation">
+
+
+
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#note_add_edit" class="brand-logo">GAE Material Note</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#/note/all">All</a></li>
+      <li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
+      <li><a href="#note_add_edit">Add note</a></li>
+      <li><a href="#category_add_edit">Add category</a></li>
+    </ul>
+
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="#/note/all">All</a></li>
+      <li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
+      <li><a href="#note_add_edit">Add note</a></li>
+      <li><a href="#category_add_edit">Add category</a></li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i
+              class="material-icons">menu</i></a>
+  </div>
+</nav>
+
+<div  ng-repeat="row in appCtrl.allCategory"> AAA {{row}}</div>
+
+ASD
+{{appCtrl.allCategory}}
+
+<!-- <div class="section no-pad-bot" id="index-banner">
+<div class="container">
+  <br><br>
+  <h1 class="header center orange-text">header</h1>
+  <div class="row center">
+    <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+  </div>
+  <div class="row center">
+    <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+  </div>
+  <br><br>
+
+</div>
+</div> -->
+
+<main>
+  <div class="container">
+    <div class="section">
+
+
+      <div ng-view></div>
+    </div>
+    <br>
+    <br>
+
+
+  </div>
+</main>
+<footer class="page-footer teal accent-3">
+  <div class="footer-copyright">
+    <div class="container">
+      <!-- Made by <a class="orange-text text-lighten-3"
+          href="http://materializecss.com">Materialize</a> -->
+    </div>
+  </div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/materialize/dist/js/materialize.js"></script>
+<script src="javascripts/init.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="app/app.js"></script>
+<script src="bower_components/requirejs/require.js"></script>
+
+
+</body>
+</html>

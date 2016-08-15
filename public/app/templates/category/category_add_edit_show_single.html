@@ -1,0 +1,14 @@
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="title" type="text" ng-model="categoryCtrl.category.name" value="ASD">
+          <label ng-class="categoryCtrl.category.name?'active':''"for="name">Title</label>
+        </div>
+      </div>
+      
+    </form>
+    <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="categoryCtrl.set()">Submit
+    <i class="material-icons right">send</i>
+  </button>
+  </div>

@@ -1,0 +1,7 @@
+<div ng-controller="categoryCtrl as categoryCtrl">
+	<div ng-include="'app/templates/category/category_add_edit_show_all.html'" ng-if="categoryCtrl.showAll" ng-class="categoryCtrl.isLoading?'loader':''"></div>
+	<div ng-include="'app/templates/category/category_add_edit_show_single.html'" ng-if="!categoryCtrl.showAll" ng-class="categoryCtrl.isLoading?'loader':''"></div>
+	<!-- {{categoryCtrl | json}} -->
+</div>
+
+
