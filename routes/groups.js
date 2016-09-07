@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('../models/category');
+var Category = require('../models/groups');
 
 /* GET category listing. */
-router.get('/categoryController', function(req, res, data) {
+router.get('/groups', function(req, res, data) {
 
     Category.find(function(err, data) {
         if (err)
@@ -12,7 +12,7 @@ router.get('/categoryController', function(req, res, data) {
     });
 });
 
-router.post('/categoryController', function(req, res, next) {
+router.post('/groups', function(req, res, next) {
 
 
     Category.create({
@@ -29,7 +29,7 @@ router.post('/categoryController', function(req, res, next) {
 
 
 
-router.put('/categoryController/:_id', function(req, res) {
+router.put('/groups/:_id', function(req, res) {
 
     Category.findById(req.params._id, function(err, data) {
 
@@ -49,9 +49,21 @@ router.put('/categoryController/:_id', function(req, res) {
 
 });
 
+router.get('/groups/:_id', function(req, res) {
+    console.log ("HEREE");
+    Category.findById(req.params._id, function(err, data) {
+
+        if (err)
+            res.send(err);
+        res.json(data);
 
 
-router.delete('/categoryController/:_id', function(req, res) {
+    });
+
+});
+
+
+router.delete('/groups/:_id', function(req, res) {
     Category.remove({
         _id: req.params._id
     }, function (err, data) {

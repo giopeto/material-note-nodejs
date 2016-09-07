@@ -15,16 +15,14 @@
         media="screen,projection" />
 </head>
 <body ng-app="ngApp" ng-controller="appCtrl as appCtrl">
+
 <nav class="teal accent-4" role="navigation">
-
-
-
   <div class="nav-wrapper container">
     <a id="logo-container" href="#note_add_edit" class="brand-logo">GAE Material Note</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="#/note/all">All</a></li>
-      <li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
-      <li><a href="#note_add_edit">Add note</a></li>
+      <li><a href="#/items">All</a></li>
+      <!--<li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
+      <li><a href="#note_add_edit">Add note</a></li>-->
       <li><a href="#category_add_edit">Add category</a></li>
     </ul>
 
@@ -39,10 +37,10 @@
   </div>
 </nav>
 
-<div  ng-repeat="row in appCtrl.allCategory"> AAA {{row}}</div>
+<!--<div  ng-repeat="row in appCtrl.allCategory"> AAA {{row}}</div>
 
 ASD
-{{appCtrl.allCategory}}
+{{appCtrl.allCategory}}-->
 
 <!-- <div class="section no-pad-bot" id="index-banner">
 <div class="container">

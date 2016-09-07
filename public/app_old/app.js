@@ -3,9 +3,8 @@ var ngApp = angular.module('ngApp', ['ngRoute', 'ngResource']);
 
 
 
-ngApp.controller('appCtrl', function($scope,  $http, $log) {
+/*ngApp.controller('appCtrl', function($scope,  $http, $log) {
 
-/*
 	var appScope = this;
 	appScope.allCategory = [];
 	appScope.asd = 1;
@@ -19,9 +18,8 @@ ngApp.controller('appCtrl', function($scope,  $http, $log) {
 		console.log("ERROR: "+error);
 		
 	});
-*/
 
-});
+});*/
 
 ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $provide, $routeProvider, $httpProvider, $locationProvider) {
 	
@@ -35,96 +33,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
         service: $provide.service
     };
 
-	$routeProvider.when('/items', {
-		templateUrl: 'app/items/items.html',
-		resolve: {
-			load: ['$q', '$rootScope', function ($q, $rootScope) {
-				var deferred = $q.defer();
-				require([
-					'app/items/items.service.js',
-					'app/items/items.controller.js',
-					'app/groups/groups.service.js',
-
-				], function () {
-					$rootScope.$apply(function () {
-						deferred.resolve();
-					}, function () {
-						console.log ('ERROR');
-					});
-				});
-				return deferred.promise;
-			}]
-		}
-	});
-
-	$routeProvider.when('/items_add_edit/:id', {
-		templateUrl: 'app/items/items_add_edit.html',
-		resolve: {
-			load: ['$q', '$rootScope', function ($q, $rootScope) {
-				var deferred = $q.defer();
-				require([
-					'app/items/items.service.js',
-					'app/items/items.controller.js',
-					'app/groups/groups.service.js',
-
-				], function () {
-					$rootScope.$apply(function () {
-						deferred.resolve();
-					}, function () {
-						console.log ('ERROR');
-					});
-				});
-				return deferred.promise;
-			}]
-		}
-	});
-
-	$routeProvider.when('/groups', {
-		templateUrl: 'app/groups/groups.html',
-		resolve: {
-			load: ['$q', '$rootScope', function ($q, $rootScope) {
-				var deferred = $q.defer();
-				require([
-					'app/groups/groups.service.js',
-					'app/groups/groups.controller.js',
-
-				], function () {
-					$rootScope.$apply(function () {
-						deferred.resolve();
-					}, function () {
-						console.log ('ERROR');
-					});
-				});
-				return deferred.promise;
-			}]
-		}
-	});
-
-	$routeProvider.when('/groups_add_edit/:id', {
-		templateUrl: 'app/groups/groups_add_edit.html',
-		resolve: {
-			load: ['$q', '$rootScope', function ($q, $rootScope) {
-				var deferred = $q.defer();
-				require([
-					'app/groups/groups.service.js',
-					'app/groups/groups.controller.js',
-
-				], function () {
-					$rootScope.$apply(function () {
-						deferred.resolve();
-					}, function () {
-						console.log ('ERROR');
-					});
-				});
-				return deferred.promise;
-			}]
-		}
-	});
-	$routeProvider.otherwise({
-		redirectTo: '/groups',
-	});
-
- /*   $routeProvider.when('/note/:categoryId', {
+    $routeProvider.when('/note/:categoryId', {
 		templateUrl: 'app/templates/note/note.html',
 		customData: 'note Custom Data returned from RouteProvider',
 		resolve: {
@@ -134,7 +43,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 					'app/controllers/note/note_add_edit.js',
 					'app/services/note/note_factory.js',
 					'app/services/category/category_factory.js',
-					/!*'app/controllers/main/main.js',*!/
+					/*'app/controllers/main/main.js',*/
 					
 				], function () {
 					$rootScope.$apply(function () {
@@ -184,6 +93,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 			}]
 		}
 
+
 	}).when('/category_add_edit/:id', {
 		templateUrl: 'app/templates/category/category_add_edit.html',
 		resolve: {
@@ -206,7 +116,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 	}).otherwise({
 		redirectTo: '/note/all',
 	});
-*/
+
     
     
     

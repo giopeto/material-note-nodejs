@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var categories = require('./routes/categories');
-var notes = require('./routes/notes');
+var groups = require('./routes/groups');
+var items = require('./routes/items');
 
 // config files
 var db = require('./config/db');
@@ -34,8 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/categories', categories);
-app.use('/notes', notes);
+app.use('/groups', groups);
+app.use('/items', items);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,3 +1,6 @@
 .idea
 bin
 node_modules
+public/app_old/directives/
+public/bower_components/materialize/test/
+public/images/

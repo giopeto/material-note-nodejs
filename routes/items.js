@@ -3,11 +3,11 @@
  */
 var express = require('express');
 var router = express.Router();
-var Note = require('../models/note');
+var Items = require('../models/items');
 
 /* GET note listing. */
-router.get('/noteController', function(req, res, next) {
-    Note.find(function(err, data) {
+router.get('/items', function(req, res, next) {
+    Items.find(function(err, data) {
 
         // if there is an error retrieving, send the error.
         // nothing after res.send(err) will execute
@@ -18,10 +18,10 @@ router.get('/noteController', function(req, res, next) {
     });
 });
 
-router.post('/noteController', function(req, res, next) {
+router.post('/items', function(req, res, next) {
 
 
-    Note.create({
+    Items.create({
         name: req.body.name,
     }, function (err, todo) {
         console.log ('In posttt: ', err);

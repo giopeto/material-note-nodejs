@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Note = require('../models/note');
+var Note = require('../models/items');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 
 
-/* GET home page. */
+/*/!* GET home page. *!/
 router.get('/categoryController', function(req, res, next) {
   Note.find(function(err, data) {
 
@@ -21,7 +21,7 @@ router.get('/categoryController', function(req, res, next) {
 
     res.json(data); // return all nerds in JSON format
   });
-});
+});*/
 
 
 module.exports = router;
