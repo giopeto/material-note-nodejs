@@ -2,12 +2,13 @@
 
 /* Items Controller */
 
-ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParams, GroupFactory, ItemFactory) {
+ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParams, GroupFactory, ItemFactory, MenuFactory) {
     var vm = this;
     vm.isLoading = false;
     vm.obj = {};
     vm.allObj = [];
     vm.allGroup = GroupFactory.query();
+
 
     vm.save = save;
     vm.get = get;
@@ -30,7 +31,8 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
 
     function get () {
         changeLoadingState();
-        vm.allObj = ItemFactory.query({}, function() {
+        vm.allObj = ItemFactory.query({groupId: $routeParams.groupId}, function() {
+            vm.obj.groupId = MenuFactory.getGroupId();
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);
@@ -66,17 +68,27 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     };
 
     function goBack () {
-        $log.log ("Backkk");
-        $location.path('/items');
+        if (MenuFactory.getGroupId()) {
+            $location.path('/items_by_group_id/'+MenuFactory.getGroupId());
+        } else {
+            $location.path('/items');
+        }
+
     };
 
     function changeLoadingState(){
         vm.isLoading = !vm.isLoading;
     };
 
+    if ($routeParams.groupId && $routeParams.groupId != 0) {
+        MenuFactory.setGroupId($routeParams.groupId);
+    } else if (!$routeParams.id) {
+        MenuFactory.setGroupId(0);
+    }
     if ($routeParams.id && $routeParams.id != 0) {
         changeLoadingState();
         vm.obj = ItemFactory.get({ id: $routeParams.id }, function (data) {
+            vm.obj.groupId = MenuFactory.getGroupId();
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);

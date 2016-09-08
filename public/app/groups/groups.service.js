@@ -2,7 +2,7 @@
 
 /* GroupFactory Services */
 
-ngApp.lazy.factory('GroupFactory', function($resource) {
+ngApp.factory('GroupFactory', function($resource) {
     var resource = $resource('groups/groups/:id', {id : '@id'}, {
         update: {
             method: 'PUT'

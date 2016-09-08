@@ -6,7 +6,14 @@ var router = express.Router();
 var Items = require('../models/items');
 
 router.get('/items', function(req, res, next) {
-    Items.find().sort('updated').exec(function(err, data) {
+
+    var groupId = req.query.groupId;
+    var qStr = "";
+    if (groupId) {
+        qStr = {groupId: groupId};
+    }
+
+    Items.find(qStr).sort('updated').exec(function(err, data) {
         if (err)
             res.send(err);
         res.json(data);

@@ -14,24 +14,22 @@
   <link href="stylesheets/style.css" type="text/css" rel="stylesheet"
         media="screen,projection" />
 </head>
-<body ng-app="ngApp" ng-controller="appCtrl as appCtrl">
+<body ng-app="ngApp">
 
-<nav class="teal accent-4" role="navigation">
+<nav class="teal accent-4" role="navigation" ng-controller="menuCtrl as vm">
   <div class="nav-wrapper container">
     <a id="logo-container" href="#note_add_edit" class="brand-logo">GAE Material Note</a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="#/items">All</a></li>
-      <!--<li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
-      <li><a href="#note_add_edit">Add note</a></li>-->
-      <li><a href="#/groups">Groups</a></li>
+      <li ng-repeat="row in vm.allGroup"><a href="#/items_by_group_id/{{row._id}}">{{row.name}}</a></li>
+      <li><a href="#/items">All Note</a></li>
+      <li ><a href="#/groups">All Groups</a></li>
     </ul>
 
-<!--    <ul id="nav-mobile" class="side-nav">
-      <li><a href="#/note/all">All</a></li>
-      <li ng-repeat="row in appCtrl.allCategory"><a href="#/note/{{row._id}}">{{row.name}}</a></li>
-      <li><a href="#note_add_edit">Add note</a></li>
-      <li><a href="#groups_add_edit">Groups</a></li>
-    </ul>-->
+    <ul id="nav-mobile" class="side-nav">
+      <li ng-repeat="row in vm.allGroup"><a href="#/items_by_group_id/{{row._id}}">{{row.name}}</a></li>
+      <li><a href="#/items">All Note</a></li>
+      <li ><a href="#/groups">All Groups</a></li>
+    </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i
               class="material-icons">menu</i></a>
   </div>
@@ -88,6 +86,10 @@ ASD
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="app/app.js"></script>
+<script src="app/groups/groups.service.js"></script>
+<script src="app/menu/menu.controller.js"></script>
+<script src="app/menu/menu.service.js"></script>
+
 <script src="bower_components/requirejs/require.js"></script>
 
 
