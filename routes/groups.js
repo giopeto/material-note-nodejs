@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('../models/groups');
+var Groups = require('../models/groups');
 
 /* GET category listing. */
 router.get('/groups', function(req, res, data) {
 
-    Category.find(function(err, data) {
+    Groups.find().sort('name').exec(function(err, data) {
         if (err)
             res.send(err);
         res.json(data);
@@ -13,11 +13,9 @@ router.get('/groups', function(req, res, data) {
 });
 
 router.post('/groups', function(req, res, next) {
-
-
-    Category.create({
+    Groups.create({
         name: req.body.name,
-    }, function (err, todo) {
+    }, function (err, data) {
         console.log ('In posttt: ', err);
         if (err)
             res.send(err);
@@ -31,7 +29,17 @@ router.post('/groups', function(req, res, next) {
 
 router.put('/groups/:_id', function(req, res) {
 
-    Category.findById(req.params._id, function(err, data) {
+    delete req.body._id;
+    Groups.findByIdAndUpdate(req.params._id,{$set:req.body}, function(err, data){
+        if(err){
+            console.log(err);
+        }
+        console.log("RESULT: " + data);
+        res.json(data);
+    });
+
+
+ /*   Groups.findById(req.params._id, function(err, data) {
 
         if (err)
             res.send(err);
@@ -45,26 +53,22 @@ router.put('/groups/:_id', function(req, res) {
             res.json({ message: 'Updated!' });
         });
 
-    });
+    });*/
 
 });
 
 router.get('/groups/:_id', function(req, res) {
-    console.log ("HEREE");
-    Category.findById(req.params._id, function(err, data) {
-
+    Groups.findById(req.params._id, function(err, data) {
         if (err)
             res.send(err);
         res.json(data);
-
-
     });
 
 });
 
 
 router.delete('/groups/:_id', function(req, res) {
-    Category.remove({
+    Groups.remove({
         _id: req.params._id
     }, function (err, data) {
         if (err)

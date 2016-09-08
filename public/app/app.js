@@ -121,7 +121,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 		}
 	});
 	$routeProvider.otherwise({
-		redirectTo: '/groups',
+		redirectTo: '/items',
 	});
 
  /*   $routeProvider.when('/note/:categoryId', {
