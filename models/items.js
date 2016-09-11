@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Items', {
+var itemsSchema = new Schema({
     name : {type : String, default: ''},
     description : {type : String, default: ''},
-    groupId: { type: mongoose.Schema.Types.ObjectId, ref: 'Groups' },
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now }
-});
+    _group: {type: mongoose.Schema.Types.ObjectId, ref: 'Groups'}
+},
+    { timestamps: true }
+);
+module.exports = mongoose.model('Items', itemsSchema);
+
+

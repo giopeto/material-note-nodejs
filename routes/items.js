@@ -10,10 +10,10 @@ router.get('/items', function(req, res, next) {
     var groupId = req.query.groupId;
     var qStr = "";
     if (groupId) {
-        qStr = {groupId: groupId};
+        qStr = {_group: groupId};
     }
 
-    Items.find(qStr).sort('updated').exec(function(err, data) {
+    Items.find(qStr).sort('updated').populate("_group").exec(function(err, data) {
         if (err)
             res.send(err);
         res.json(data);
@@ -21,8 +21,6 @@ router.get('/items', function(req, res, next) {
 });
 
 router.post('/items', function(req, res, next) {
-    req.body.created = new Date();
-    req.body.updated = req.body.created;
     Items.create(
        req.body
     , function (err, data) {
@@ -35,12 +33,10 @@ router.post('/items', function(req, res, next) {
 
 router.put('/items/:_id', function(req, res) {
     delete req.body._id;
-    req.body.updated = new Date();
     Items.findByIdAndUpdate(req.params._id, {$set: req.body}, function(err, data){
         if(err){
-            console.log(err);
+            res.send(err);
         }
-        console.log("RESULT: " + data);
         res.json(data);
     });
 });

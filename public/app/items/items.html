@@ -20,7 +20,8 @@
             </div>
             <div class="collapsible-body teal lighten-1">
                 <p style="word-wrap: break-word">{{row.description}}</p>
-                <p>{{row.updated|date}}</p>
+                <p>{{row._group.name}}</p>
+                <p>{{row.updatedAt|date}}</p>
                 <div class="row center">
                     <button class="btn-floating btn-large waves-effect waves-light red">
                         <i class="material-icons" ng-click="vm.addEdit(row)">edit</i>

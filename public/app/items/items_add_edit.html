@@ -18,9 +18,9 @@
 
         <div class="row">
             <label>Browser Select</label>
-            <select class="browser-default" ng-model="vm.obj.groupId">
-                <option value="" >Choose category</option>
-                <option value="{{row._id}}" ng-repeat="row in vm.allGroup" ng-selected="row._id===vm.obj.groupId">{{row.name}}</option>
+            <select class="browser-default" ng-model="vm.obj._group">
+                <option value="" >Choose group</option>
+                <option value="{{row._id}}" ng-repeat="row in vm.allGroup" ng-selected="row._id===vm.obj._group">{{row.name}}</option>
             </select>
         </div>
 
@@ -35,6 +35,6 @@
         <i class="material-icons right">replay</i>
     </button>
 
-    <!-- {{vm.obj | json}}-->
+    <!--{{vm.obj | json}}-->
 
 </div>

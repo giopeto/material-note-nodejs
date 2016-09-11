@@ -16,7 +16,6 @@ router.post('/groups', function(req, res, next) {
     Groups.create({
         name: req.body.name,
     }, function (err, data) {
-        console.log ('In posttt: ', err);
         if (err)
             res.send(err);
 
@@ -32,9 +31,8 @@ router.put('/groups/:_id', function(req, res) {
     delete req.body._id;
     Groups.findByIdAndUpdate(req.params._id,{$set:req.body}, function(err, data){
         if(err){
-            console.log(err);
+            res.send(err);
         }
-        console.log("RESULT: " + data);
         res.json(data);
     });
 

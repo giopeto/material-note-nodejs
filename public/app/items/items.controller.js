@@ -20,8 +20,6 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     function save () {
         changeLoadingState();
         ItemFactory.save(vm.obj, function (data) {
-
-            $log.log("save success: ", data);
             goBack();
         }, function (error) {
             $log.log("Error: ", error);
