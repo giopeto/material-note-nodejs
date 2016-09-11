@@ -50,16 +50,6 @@ router.post('/users/signin', function(req, res, next) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
 router.get('/users/profile', function(req, res, next) {
   res.json([{a: 'Profile'}]);
 });
