@@ -10,7 +10,7 @@ router.use(csrfProtection);
 /* GET users listing. */
 router.get('/users/signup', function(req, res, next) {
   var messages = req.flash('error');
-  console.log(req.flash('error'));
+
   //var messages = [];
 
   //res.json({messages: messages, csrfToken: 123});
@@ -29,16 +29,6 @@ router.post('/users/signup', passport.authenticate('local.signup', {
   failureFlash : true // allow flash messages
 }));
 
-/*
-router.post('/users/signin', function(req, res, next) {
-    passport.authenticate('local.signin', function (nullParam, user, messages) {
-      console.log (req);
-      console.log (res);
-      res.json({user: res, messages: messages});
-    });
-});
-*/
-
 
 router.post('/users/signin', function(req, res, next) {
   passport.authenticate('local.signin', function(err, user, messages) {
@@ -49,10 +39,9 @@ router.post('/users/signin', function(req, res, next) {
       if (err) { return next(err); }
       // Redirect if it succeeds
       if (user) {
-        console.log ("11111111111111111: ", user);
         return res.json(user);
       } else {
-        console.log ("22222222222: ", user);
+
         return res.json({messages: messages});
       }
 
