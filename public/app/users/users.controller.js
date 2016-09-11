@@ -8,10 +8,11 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 	vm.obj = {_csrf: ""};
 	vm.allObj = [];
 
-
+	console.log ($routeParams);
 	//vm.save = save;
 	//vm.get = get;
 	vm.signup = signup;
+	vm.signin = signin;
 	/*vm.update = update;
 	vm.addEdit = addEdit;
 	vm.remove = remove;
@@ -22,21 +23,26 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 		$http.post('users/users/signup',
 			vm.obj
 		).success(function(data) {
-
+			$log.log("LOGIN: ", data);
+			vm.obj.messages = "Sign up successful!";
 		}).error(function(error) {
-			$log.log("ERROR: "+error);
+			$log.log("ERROR LOGIN: "+error);
+			vm.obj.messages = "Sign up failed!";
 		});
-
-		/*changeLoadingState();
-		vm.obj = UserFactory.get(vm.obj, function (data) {
-
-			changeLoadingState();
-		}, function (error) {
-			$log.log ("Error: ", error);
-			changeLoadingState();
-		});*/
 	}
 
+	function signin () {
+
+		$http.post('users/users/signin',
+			vm.obj
+		).success(function(data) {
+			$log.log("signin: ", data);
+			//vm.obj.messages = "Sign up successful!";
+		}).error(function(error) {
+			$log.log("ERROR signin: ", error);
+			//vm.obj.messages = "Sign up failed!";
+		});
+	}
 	/*function save () {
 		changeLoadingState();
 		UserFactory.save(vm.obj, function (data) {
@@ -50,7 +56,7 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 	function get () {
 		$http.get('users/users/signup').success(function(data) {
 			vm.obj._csrf = data.csrfToken;
-			vm.obj.messages = data.messages;
+			//vm.obj.messages = data.messages;
 		}).error(function(error) {
 			$log.log("ERROR: "+error);
 		});

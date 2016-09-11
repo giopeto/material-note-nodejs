@@ -33,6 +33,26 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 		}
 	});
 
+	$routeProvider.when('/users/signin', {
+		templateUrl: 'app/users/signin.html',
+		resolve: {
+			load: ['$q', '$rootScope', function ($q, $rootScope) {
+				var deferred = $q.defer();
+				require([
+					'app/users/users.service.js',
+					'app/users/users.controller.js'
+				], function () {
+					$rootScope.$apply(function () {
+						deferred.resolve();
+					}, function () {
+						console.log ('ERROR');
+					});
+				});
+				return deferred.promise;
+			}]
+		}
+	});
+
 	$routeProvider.when('/items', {
 		templateUrl: 'app/items/items.html',
 		resolve: {

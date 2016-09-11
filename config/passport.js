@@ -20,20 +20,15 @@ passport.use('local.signup', new LocalStrategy({
 	passReqToCallback : true // allows us to pass back the entire request to the callback
 }, function(req, email, password, done) {
 
-	console.log ("aaa");
-
 	User.findOne({'email': email}, function(err, user) {
-		console.log ("111111");
 		if (err) {
 			res.send(err);
 		}
-		console.log ("111111");
 		if (user) {
-			console.log ("111111 email");
 			return done(null, false, req.flash('signupMessage', 'That email is already taken. SET IN PASSPORT JS'));
 		} else {
 			var newUser = new User();
-			console.log ("Create user");
+
 			// set the user's local credentials
 			newUser.email    = email;
 			newUser.password = newUser.encryptPassword(password);
@@ -46,14 +41,35 @@ passport.use('local.signup', new LocalStrategy({
 						return done(err);
 					return done(null, newUser);
 				});
-
-			// save the user
-			/*newUser.save(function(err) {
-				if (err)
-					return done(err);
-				return done(null, newUser);
-			});*/
 		}
+
+	});
+}));
+
+passport.use('local.signin', new LocalStrategy({
+	// by default, local strategy uses username and password, we will override with email
+	usernameField : 'email',
+	passwordField : 'password',
+	passReqToCallback : true // allows us to pass back the entire request to the callback
+}, function(req, email, password, done) {
+
+	User.findOne({'email': email}, function(err, user) {
+
+		if (err) { return done(err); }
+		// Return if user not found in database
+		if (!user) {
+			return done(null, false, {
+				message: 'User not found'
+			});
+		}
+		// Return if password is wrong
+		if (!user.validPassword(password)) {
+			return done(null, false, {
+				message: 'Password is wrong'
+			});
+		}
+		// If credentials are correct, return the user object
+		return done(null, user);
 
 	});
 }));
