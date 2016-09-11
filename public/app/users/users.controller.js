@@ -20,7 +20,7 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 
 	function signup () {
 
-		$http.post('users/users/signup',
+		$http.post('/users/signup',
 			vm.obj
 		).success(function(data) {
 			$log.log("LOGIN: ", data);
@@ -33,7 +33,7 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 
 	function signin () {
 
-		$http.post('users/users/signin',
+		$http.post('/users/signin',
 			vm.obj
 		).success(function(data) {
 			$log.log("signin: ", data);
@@ -54,7 +54,7 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 	};*/
 
 	function get () {
-		$http.get('users/users/signup').success(function(data) {
+		$http.get('/users/signup').success(function(data) {
 			vm.obj._csrf = data.csrfToken;
 			//vm.obj.messages = data.messages;
 		}).error(function(error) {

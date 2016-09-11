@@ -8,7 +8,7 @@ var csrfProtection = new csrf();
 router.use(csrfProtection);
 
 /* GET users listing. */
-router.get('/users/signup', function(req, res, next) {
+router.get('/signup', function(req, res, next) {
   var messages = req.flash('error');
 
   //var messages = [];
@@ -17,20 +17,21 @@ router.get('/users/signup', function(req, res, next) {
   res.json({messages: messages, csrfToken: req.csrfToken()});
 });
 
-router.get('/users/signin', function(req, res, next) {
-  var messages = req.flash('error');
-  res.json({messages: messages, csrfToken: req.csrfToken()});
-});
 
 
-router.post('/users/signup', passport.authenticate('local.signup', {
+
+router.post('/signup', passport.authenticate('local.signup', {
   successRedirect : 'profile', // redirect to the secure profile section
   failureRedirect : 'fail', // redirect back to the signup page if there is an error
   failureFlash : true // allow flash messages
 }));
 
+/*router.get('/users/signin', function(req, res, next) {
+  var messages = req.flash('error');
+  res.json({messages: messages, csrfToken: req.csrfToken()});
+});*/
 
-router.post('/users/signin', function(req, res, next) {
+router.post('/signin', function(req, res, next) {
   passport.authenticate('local.signin', function(err, user, messages) {
     if (err) { return next(err); }
     // Redirect if it fails
@@ -50,11 +51,11 @@ router.post('/users/signin', function(req, res, next) {
 });
 
 
-router.get('/users/profile', function(req, res, next) {
+router.get('/profile', function(req, res, next) {
   res.json([{a: 'Profile'}]);
 });
 
-router.get('/users/fail', function(req, res, next) {
+router.get('/fail', function(req, res, next) {
   res.send(401);
 });
 
