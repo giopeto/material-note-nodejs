@@ -17,6 +17,7 @@ var users = require('./routes/users');
 
 // config files
 var db = require('./config/db');
+require('./config/passport');
 
 // configuration ===============================================================
 mongoose.connect(db.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
@@ -32,10 +33,10 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
-app.use(flash);
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));

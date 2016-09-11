@@ -2,14 +2,14 @@
 
 /* Users Controller */
 
-ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParams, UserFactory) {
+ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParams, $http, UserFactory) {
 	var vm = this;
 	vm.isLoading = false;
 	vm.obj = {_csrf: ""};
 	vm.allObj = [];
 
 
-	vm.save = save;
+	//vm.save = save;
 	//vm.get = get;
 	vm.signup = signup;
 	/*vm.update = update;
@@ -18,17 +18,26 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 	vm.goBack = goBack;*/
 
 	function signup () {
-		changeLoadingState();
+
+		$http.post('users/users/signup',
+			vm.obj
+		).success(function(data) {
+
+		}).error(function(error) {
+			$log.log("ERROR: "+error);
+		});
+
+		/*changeLoadingState();
 		vm.obj = UserFactory.get(vm.obj, function (data) {
 
 			changeLoadingState();
 		}, function (error) {
 			$log.log ("Error: ", error);
 			changeLoadingState();
-		});
+		});*/
 	}
 
-	function save () {
+	/*function save () {
 		changeLoadingState();
 		UserFactory.save(vm.obj, function (data) {
 			//goBack();
@@ -36,18 +45,17 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 			$log.log("Error: ", error);
 			changeLoadingState();
 		});
-	};
+	};*/
 
 	function get () {
-		changeLoadingState();
-		vm.allObj = UserFactory.query({}, function(data) {
-			changeLoadingState();
-			$log.log (data[0]);
-			vm.obj._csrf = data[0].csrfToken;
-		}, function (error) {
-			$log.log ("Error: ", error);
-			changeLoadingState();
+		$http.get('users/users/signup').success(function(data) {
+			vm.obj._csrf = data.csrfToken;
+			vm.obj.messages = data.messages;
+		}).error(function(error) {
+			$log.log("ERROR: "+error);
 		});
+
+
 	};
 
 	function changeLoadingState(){

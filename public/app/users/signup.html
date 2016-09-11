@@ -1,6 +1,6 @@
 <div class="row" ng-controller="usersCtrl as vm">
-
-    <h5 class="teal-text">Please, login into your account</h5>
+    {{vm.obj | json}}
+    <h5 class="teal-text">Create your account</h5>
 
 
         <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
@@ -31,7 +31,7 @@
                 <br />
                 <center>
                     <div class='row'>
-                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect' ng-click="vm.save()">Sign up</button>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect' ng-click="vm.signup()">Sign up</button>
                     </div>
                 </center>
             </form>
