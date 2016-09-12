@@ -39,8 +39,6 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 		}).error(function(error) {
 			$log.log("ERROR: "+error);
 		});
-
-
 	};
 
 	function changeLoadingState(){
