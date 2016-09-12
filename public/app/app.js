@@ -153,7 +153,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 
 
 	$routeProvider.otherwise({
-		redirectTo: '/items',
+		redirectTo: '/users/signin'
 	});
 
 });
