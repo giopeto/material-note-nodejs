@@ -13,6 +13,26 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
         service: $provide.service
     };
 
+	$routeProvider.when('/home', {
+		templateUrl: 'app/home/home.html',
+		/*resolve: {
+			load: ['$q', '$rootScope', function ($q, $rootScope) {
+				var deferred = $q.defer();
+				require([
+					'app/items/items.service.js',
+					'app/items/items.controller.js'
+				], function () {
+					$rootScope.$apply(function () {
+						deferred.resolve();
+					}, function () {
+						console.log ('ERROR');
+					});
+				});
+				return deferred.promise;
+			}]
+		}*/
+	});
+
 	$routeProvider.when('/users/signup', {
 		templateUrl: 'app/users/signup.html',
 		resolve: {
@@ -153,7 +173,7 @@ ngApp.config(function ($controllerProvider, $compileProvider, $filterProvider, $
 
 
 	$routeProvider.otherwise({
-		redirectTo: '/users/signin'
+		redirectTo: '/home'
 	});
 
 });
