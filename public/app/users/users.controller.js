@@ -50,8 +50,6 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 	function getClass (args) {
 		var passLength = args.password ? args.password.length : 0;
 		var thisClass = "";
-
-
 		if (passLength>=8 || passLength===0) {
 			thisClass = "teal-text";
 			vm.obj.determinateClass = "determinate teal";
@@ -62,9 +60,8 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 			thisClass = "pink-text";
 			vm.obj.determinateClass = "determinate pink";
 		}
-		$log.log (thisClass);
-
 		return thisClass;
 	}
-	getCsrfToken(); //This is stupid
+
+	getCsrfToken();
 });
