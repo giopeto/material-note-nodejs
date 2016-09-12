@@ -25,7 +25,7 @@ passport.use('local.signup', new LocalStrategy({
 			res.send(err);
 		}
 		if (user) {
-			return done(null, false, req.flash('signupMessage', 'That email is already taken. SET IN PASSPORT JS'));
+			return done(null, false, {message: 'That email is already taken. SET IN PASSPORT JS'});
 		} else {
 			var newUser = new User();
 

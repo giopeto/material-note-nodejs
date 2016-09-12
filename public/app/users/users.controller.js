@@ -2,61 +2,40 @@
 
 /* Users Controller */
 
-ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParams, $http, UserFactory) {
+ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, UserFactory) {
 	var vm = this;
 	vm.isLoading = false;
 	vm.obj = {_csrf: ""};
-	vm.allObj = [];
 
-	console.log ($routeParams);
-	//vm.save = save;
-	//vm.get = get;
 	vm.signup = signup;
 	vm.signin = signin;
+	vm.getClass = getClass;
 	/*vm.update = update;
 	vm.addEdit = addEdit;
 	vm.remove = remove;
 	vm.goBack = goBack;*/
 
 	function signup () {
-
-		$http.post('/users/signup',
-			vm.obj
-		).success(function(data) {
-			$log.log("LOGIN: ", data);
-			vm.obj.messages = "Sign up successful!";
+		$http.post('/users/signup', vm.obj).success(function(data) {
+			angular.extend(vm.obj, data);
+			vm.obj.message = data.message;
 		}).error(function(error) {
 			$log.log("ERROR LOGIN: "+error);
-			vm.obj.messages = "Sign up failed!";
 		});
 	}
 
 	function signin () {
-
-		$http.post('/users/signin',
-			vm.obj
-		).success(function(data) {
-			$log.log("signin: ", data);
-			//vm.obj.messages = "Sign up successful!";
+		$http.post('/users/signin', vm.obj).success(function(data) {
+			angular.extend(vm.obj, data);
+			vm.obj.message = data.message;
 		}).error(function(error) {
 			$log.log("ERROR signin: ", error);
-			//vm.obj.messages = "Sign up failed!";
 		});
 	}
-	/*function save () {
-		changeLoadingState();
-		UserFactory.save(vm.obj, function (data) {
-			//goBack();
-		}, function (error) {
-			$log.log("Error: ", error);
-			changeLoadingState();
-		});
-	};*/
 
-	function get () {
+	function getCsrfToken () {
 		$http.get('/users/signup').success(function(data) {
 			vm.obj._csrf = data.csrfToken;
-			//vm.obj.messages = data.messages;
 		}).error(function(error) {
 			$log.log("ERROR: "+error);
 		});
@@ -68,5 +47,24 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $routeParam
 		vm.isLoading = !vm.isLoading;
 	};
 
-	get(); //This is stupid
+	function getClass (args) {
+		var passLength = args.password ? args.password.length : 0;
+		var thisClass = "";
+
+
+		if (passLength>=8 || passLength===0) {
+			thisClass = "teal-text";
+			vm.obj.determinateClass = "determinate teal";
+		} else if (passLength>4 && passLength<8) {
+			thisClass = "orange-text";
+			vm.obj.determinateClass = "determinate orange";
+		} else {
+			thisClass = "pink-text";
+			vm.obj.determinateClass = "determinate pink";
+		}
+		$log.log (thisClass);
+
+		return thisClass;
+	}
+	getCsrfToken(); //This is stupid
 });

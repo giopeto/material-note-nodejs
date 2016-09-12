@@ -7,56 +7,63 @@ var csrfProtection = new csrf();
 
 router.use(csrfProtection);
 
-/* GET users listing. */
+/* GET csrfToken */
 router.get('/signup', function(req, res, next) {
-  var messages = req.flash('error');
-
-  //var messages = [];
-
-  //res.json({messages: messages, csrfToken: 123});
-  res.json({messages: messages, csrfToken: req.csrfToken()});
+  res.json({csrfToken: req.csrfToken()});
 });
 
-
-
-
-router.post('/signup', passport.authenticate('local.signup', {
-  successRedirect : 'profile', // redirect to the secure profile section
-  failureRedirect : 'fail', // redirect back to the signup page if there is an error
-  failureFlash : true // allow flash messages
-}));
-
-/*router.get('/users/signin', function(req, res, next) {
-  var messages = req.flash('error');
-  res.json({messages: messages, csrfToken: req.csrfToken()});
-});*/
+router.post('/signup', function(req, res, next) {
+  passport.authenticate('local.signup', function(err, user, messages) {
+    if (err) { return next(err); }
+    if (!user) {
+      messages.isLoggedIn = false;
+      return res.json(messages);
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      if (user) {
+        user = user.toObject();
+        user.isLoggedIn = isLoggedIn(req, res, next);
+        delete user.password;
+        return res.json(user);
+      } else {
+        messages.isLoggedIn = false;
+        return res.json(messages);
+      }
+    });
+  })(req, res, next);
+});
 
 router.post('/signin', function(req, res, next) {
   passport.authenticate('local.signin', function(err, user, messages) {
     if (err) { return next(err); }
-    // Redirect if it fails
-    if (!user) {return res.json({messages: messages});}
+    if (!user) {
+      messages.isLoggedIn = false;
+      return res.json(messages);
+    }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      // Redirect if it succeeds
       if (user) {
+        user = user.toObject();
+        user.isLoggedIn = isLoggedIn(req, res, next);
+        delete user.password;
+        console.log ("User: ", user);
         return res.json(user);
       } else {
-
-        return res.json({messages: messages});
+        messages.isLoggedIn = false;
+        return res.json(messages);
       }
-
     });
   })(req, res, next);
 });
 
 
 router.get('/profile', function(req, res, next) {
-  res.json([{a: 'Profile'}]);
-});
-
-router.get('/fail', function(req, res, next) {
-  res.send(401);
+  //res.json([{a: 'Profile'}]);
 });
 
 module.exports = router;
+
+function isLoggedIn (req, res, next) {
+  return req.isAuthenticated();
+};
