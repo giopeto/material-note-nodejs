@@ -2,7 +2,7 @@
 
 /* Users Controller */
 
-ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, UserFactory) {
+ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, UserFactory, MenuFactory, localStorageService) {
 	var vm = this;
 	vm.isLoading = false;
 	vm.obj = {_csrf: ""};
@@ -11,14 +11,15 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 	vm.signin = signin;
 	vm.getClass = getClass;
 	/*vm.update = update;
-	vm.addEdit = addEdit;
-	vm.remove = remove;
-	vm.goBack = goBack;*/
+	 vm.addEdit = addEdit;
+	 vm.remove = remove;
+	 vm.goBack = goBack;*/
 
 	function signup () {
 		$http.post('/users/signup', vm.obj).success(function(data) {
 			angular.extend(vm.obj, data);
 			vm.obj.message = data.message;
+			setUser(vm.obj);
 		}).error(function(error) {
 			$log.log("ERROR LOGIN: "+error);
 		});
@@ -28,9 +29,18 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 		$http.post('/users/signin', vm.obj).success(function(data) {
 			angular.extend(vm.obj, data);
 			vm.obj.message = data.message;
+			setUser(vm.obj);
 		}).error(function(error) {
 			$log.log("ERROR signin: ", error);
 		});
+	}
+
+	function setUser (data) {
+		if (!data.isLoggedIn) {
+			data = {};
+		}
+		localStorageService.set("user", data)
+		MenuFactory.setUser(data);
 	}
 
 	function getCsrfToken () {

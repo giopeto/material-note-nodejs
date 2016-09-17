@@ -2,10 +2,15 @@
 
 /* Groups Controller */
 
-ngApp.lazy.controller('groupsCtrl', function($scope, $log, $location, $routeParams, GroupFactory) {
+ngApp.lazy.controller('groupsCtrl', function($scope, $rootScope, $log, $location, $routeParams, GroupFactory, MenuFactory) {
     var vm = this;
     vm.isLoading = false;
-    vm.obj = {};
+    vm.obj = {
+        _user: MenuFactory.getUser()._id
+    };
+    $rootScope.$on('userChanged', function(){
+        vm.obj._user = MenuFactory.getUser()._id;
+    });
     vm.allObj = [];
 
 
@@ -18,8 +23,12 @@ ngApp.lazy.controller('groupsCtrl', function($scope, $log, $location, $routePara
 
     function save () {
         changeLoadingState();
+		$log.log ("vm.obj: ", vm.obj);
+		alert ("Save group", vm.obj);
         GroupFactory.save(vm.obj, function (data) {
-            goBack();
+			alert ("Save group success: ", vm.obj);
+			goBack();
+
         }, function (error) {
             $log.log("Error: ", error);
             changeLoadingState();
@@ -28,7 +37,7 @@ ngApp.lazy.controller('groupsCtrl', function($scope, $log, $location, $routePara
 
     function get () {
         changeLoadingState();
-        vm.allObj = GroupFactory.query({}, function() {
+        vm.allObj = GroupFactory.query({userId: vm.obj._user}, function() {
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);

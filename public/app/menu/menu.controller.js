@@ -5,7 +5,17 @@
 
 /* Menu Controller */
 
-ngApp.controller('menuCtrl', function($scope, $log, GroupFactory) {
+ngApp.controller('menuCtrl', function($rootScope, $log, GroupFactory, localStorageService, MenuFactory) {
+
     var vm = this;
-    vm.allGroup = GroupFactory.query();
+    vm.allGroup = [];
+    vm.user = MenuFactory.getUser();
+    vm.allGroup = GroupFactory.query({userId: vm.user._id});
+
+    $rootScope.$on('userChanged', function(){
+        alert ('Troubleee ');
+        vm.user = MenuFactory.getUser();
+        vm.allGroup = GroupFactory.query({userId: vm.user._id});
+    });
+
 });

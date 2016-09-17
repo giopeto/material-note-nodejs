@@ -47,7 +47,6 @@ router.post('/signin', function(req, res, next) {
         user = user.toObject();
         user.isLoggedIn = isLoggedIn(req, res, next);
         delete user.password;
-        console.log ("User: ", user);
         return res.json(user);
       } else {
         messages.isLoggedIn = false;

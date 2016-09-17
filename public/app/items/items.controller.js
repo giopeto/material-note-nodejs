@@ -7,7 +7,7 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     vm.isLoading = false;
     vm.obj = {};
     vm.allObj = [];
-    vm.allGroup = GroupFactory.query();
+    vm.allGroup = GroupFactory.query({userId: MenuFactory.getUser()._id});
 
 
     vm.save = save;
@@ -29,7 +29,7 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
 
     function get () {
         changeLoadingState();
-        vm.allObj = ItemFactory.query({groupId: $routeParams.groupId}, function() {
+        vm.allObj = ItemFactory.query({groupId: $routeParams.groupId, userId: MenuFactory.getUser()._id}, function() {
             vm.obj.groupId = MenuFactory.getGroupId();
             changeLoadingState();
         }, function (error) {

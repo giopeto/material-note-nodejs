@@ -24,7 +24,6 @@ router.post('/items', function(req, res, next) {
     Items.create(
        req.body
     , function (err, data) {
-        console.log ('In posttt: ', err);
         if (err)
             res.send(err);
     });

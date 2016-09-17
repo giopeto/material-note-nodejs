@@ -5,17 +5,27 @@ var Groups = require('../models/groups');
 /* GET category listing. */
 router.get('/groups', function(req, res, data) {
 
-    Groups.find().sort('name').exec(function(err, data) {
-        if (err)
-            res.send(err);
-        res.json(data);
-    });
+    var userId = req.query.userId;
+
+    console.log ("User id: ",userId );
+
+    if (!userId) {
+        res.json([]);
+    } else {
+        Groups.find({_user: userId}).sort('name').exec(function(err, data) {
+            if (err)
+                res.send(err);
+            res.json(data);
+        });
+    }
+
+
 });
 
 router.post('/groups', function(req, res, next) {
-    Groups.create({
-        name: req.body.name,
-    }, function (err, data) {
+    Groups.create(
+        req.body
+    , function (err, data) {
         if (err)
             res.send(err);
 
@@ -37,21 +47,21 @@ router.put('/groups/:_id', function(req, res) {
     });
 
 
- /*   Groups.findById(req.params._id, function(err, data) {
+    /*   Groups.findById(req.params._id, function(err, data) {
 
-        if (err)
-            res.send(err);
+     if (err)
+     res.send(err);
 
-        data.name = req.body.name;
+     data.name = req.body.name;
 
-        data.save(function(err) {
-            if (err)
-                res.send(err);
+     data.save(function(err) {
+     if (err)
+     res.send(err);
 
-            res.json({ message: 'Updated!' });
-        });
+     res.json({ message: 'Updated!' });
+     });
 
-    });*/
+     });*/
 
 });
 
