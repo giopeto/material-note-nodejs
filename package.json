@@ -3,8 +3,13 @@
   "version": "0.0.1",
   "main": "app.js",
   "private": true,
+  "engines": {
+    "node": "~4.2"
+  },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud app deploy"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
