@@ -25,7 +25,7 @@ router.post('/groups', function(req, res, next) {
         if (err)
             res.send(err);
 
-        res.json({ message: 'Updated!' });
+        res.json(data);
     });
 });
 

@@ -2,7 +2,7 @@
 
 /* Items Controller */
 
-ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParams, GroupFactory, ItemFactory, MenuFactory) {
+ngApp.lazy.controller('itemsCtrl', function($scope, $log, $http, $location, $routeParams, GroupFactory, ItemFactory, MenuFactory) {
     var vm = this;
     vm.isLoading = false;
     vm.obj = {};
@@ -30,7 +30,7 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     function get () {
         changeLoadingState();
         vm.allObj = ItemFactory.query({groupId: $routeParams.groupId, userId: MenuFactory.getUser()._id}, function() {
-            vm.obj.groupId = MenuFactory.getGroupId();
+            vm.obj._group = MenuFactory.getGroupId();
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);
@@ -86,7 +86,7 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     if ($routeParams.id && $routeParams.id != 0) {
         changeLoadingState();
         vm.obj = ItemFactory.get({ id: $routeParams.id }, function (data) {
-            vm.obj.groupId = MenuFactory.getGroupId();
+            vm.obj._group = MenuFactory.getGroupId();
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);
@@ -95,5 +95,27 @@ ngApp.lazy.controller('itemsCtrl', function($scope, $log, $location, $routeParam
     } else {
         get();
     }
+
+
+
+    /**/
+
+    var loadFromFile = function () {
+        $http.get('app/data.json').success(function (data) {
+            data.greetings.forEach(function (v) {
+                $log.log(v);
+                var args = {
+                    name: v.content,
+                    description: v.content
+                };
+                ItemFactory.save(args, function (data) {
+                }, function (error) {
+                    $log.log("Error: ", error);
+                });
+            });
+        });
+    };
+    //loadFromFile();
+
 
 });

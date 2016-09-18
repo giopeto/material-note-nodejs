@@ -21,11 +21,20 @@ router.get('/items', function(req, res, next) {
 });
 
 router.post('/items', function(req, res, next) {
+    var mongoose = require('mongoose');
+	var ObjectId = require('mongodb').ObjectId;
+
+    if (!req.body._group) {
+        req.body._group = new ObjectId("57de3ef8a916e1ac15f031d5");
+    }
+
     Items.create(
        req.body
     , function (err, data) {
-        if (err)
+        if (err) {
             res.send(err);
+        }
+        res.json(data);
     });
 
 });
@@ -55,9 +64,7 @@ router.delete('/items/:_id', function(req, res) {
     }, function (err, data) {
         if (err)
             res.send(err);
-
         res.json({ message: 'Removed!' });
-
     });
 
 

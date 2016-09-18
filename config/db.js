@@ -1,4 +1,4 @@
 module.exports = {
-    //remoteUrl : 'mongodb://node:nodeuser@mongo.onmodulus.net:27017/uwO3mypu',
+    //remoteUrl : process.env.OPENSHIFT_MONGODB_DB_URL ? process.env.OPENSHIFT_MONGODB_DB_URL + "material-note" : "",
     localUrl: 'mongodb://localhost/material-note'
 };

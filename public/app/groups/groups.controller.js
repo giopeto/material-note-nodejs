@@ -58,6 +58,7 @@ ngApp.lazy.controller('groupsCtrl', function($scope, $rootScope, $log, $location
         changeLoadingState();
         GroupFactory.delete({id: args._id}, function (data) {
             vm.allObj.splice(args.index, 1);
+            $rootScope.$emit("groupChanged", {});
             changeLoadingState();
         }, function (error) {
             $log.log ("Error: ", error);
