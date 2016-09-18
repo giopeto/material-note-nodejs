@@ -2,13 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Groups = require('../models/groups');
 
-/* GET category listing. */
+
 router.get('/groups', function(req, res, data) {
 
     var userId = req.query.userId;
-
-    console.log ("User id: ",userId );
-
     if (!userId) {
         res.json([]);
     } else {
@@ -18,7 +15,6 @@ router.get('/groups', function(req, res, data) {
             res.json(data);
         });
     }
-
 
 });
 
@@ -31,13 +27,11 @@ router.post('/groups', function(req, res, next) {
 
         res.json({ message: 'Updated!' });
     });
-
 });
 
 
 
 router.put('/groups/:_id', function(req, res) {
-
     delete req.body._id;
     Groups.findByIdAndUpdate(req.params._id,{$set:req.body}, function(err, data){
         if(err){
@@ -45,24 +39,6 @@ router.put('/groups/:_id', function(req, res) {
         }
         res.json(data);
     });
-
-
-    /*   Groups.findById(req.params._id, function(err, data) {
-
-     if (err)
-     res.send(err);
-
-     data.name = req.body.name;
-
-     data.save(function(err) {
-     if (err)
-     res.send(err);
-
-     res.json({ message: 'Updated!' });
-     });
-
-     });*/
-
 });
 
 router.get('/groups/:_id', function(req, res) {
@@ -71,7 +47,6 @@ router.get('/groups/:_id', function(req, res) {
             res.send(err);
         res.json(data);
     });
-
 });
 
 
@@ -81,14 +56,8 @@ router.delete('/groups/:_id', function(req, res) {
     }, function (err, data) {
         if (err)
             res.send(err);
-
         res.json({ message: 'Removed!' });
-
     });
-
-
 });
-
-
 
 module.exports = router;

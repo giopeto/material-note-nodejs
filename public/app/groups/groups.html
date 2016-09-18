@@ -1,6 +1,9 @@
 <div class="row" ng-controller="groupsCtrl as vm">
 
     <!--{{vm | json}}-->
+    <div class="progress" ng-if="vm.isLoading">
+        <div class="indeterminate"></div>
+    </div>
 
     <div class="row center">
         <button class="btn-floating btn-large waves-effect waves-light red">

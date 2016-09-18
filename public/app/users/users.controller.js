@@ -10,10 +10,6 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 	vm.signup = signup;
 	vm.signin = signin;
 	vm.getClass = getClass;
-	/*vm.update = update;
-	 vm.addEdit = addEdit;
-	 vm.remove = remove;
-	 vm.goBack = goBack;*/
 
 	function signup () {
 		$http.post('/users/signup', vm.obj).success(function(data) {
@@ -41,6 +37,9 @@ ngApp.lazy.controller('usersCtrl', function($scope, $log, $location, $http, User
 		}
 		localStorageService.set("user", data)
 		MenuFactory.setUser(data);
+		if (data.isLoggedIn) {
+			$location.path('/groups');
+		}
 	}
 
 	function getCsrfToken () {

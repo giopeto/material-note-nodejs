@@ -1,5 +1,9 @@
 <div class="row" ng-controller="itemsCtrl as vm">
 
+    <div class="progress" ng-if="vm.isLoading">
+        <div class="indeterminate"></div>
+    </div>
+
     <form class="col s12">
         <div class="row">
             <div class="input-field col s12">

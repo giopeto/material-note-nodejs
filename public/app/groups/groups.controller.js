@@ -23,12 +23,9 @@ ngApp.lazy.controller('groupsCtrl', function($scope, $rootScope, $log, $location
 
     function save () {
         changeLoadingState();
-		$log.log ("vm.obj: ", vm.obj);
-		alert ("Save group", vm.obj);
         GroupFactory.save(vm.obj, function (data) {
-			alert ("Save group success: ", vm.obj);
-			goBack();
-
+            $rootScope.$emit("groupChanged", {});
+            goBack();
         }, function (error) {
             $log.log("Error: ", error);
             changeLoadingState();
@@ -49,6 +46,7 @@ ngApp.lazy.controller('groupsCtrl', function($scope, $rootScope, $log, $location
         changeLoadingState();
         vm.obj.id = vm.obj._id;
         GroupFactory.update(vm.obj, function (data) {
+            $rootScope.$emit("groupChanged", {});
             goBack();
         }, function (error) {
             $log.log("Error: ", error);

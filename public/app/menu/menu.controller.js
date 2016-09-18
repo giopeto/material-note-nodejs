@@ -17,5 +17,7 @@ ngApp.controller('menuCtrl', function($rootScope, $log, GroupFactory, localStora
         vm.user = MenuFactory.getUser();
         vm.allGroup = GroupFactory.query({userId: vm.user._id});
     });
-
+    $rootScope.$on('groupChanged', function(){
+        vm.allGroup = GroupFactory.query({userId: vm.user._id});
+    });
 });
