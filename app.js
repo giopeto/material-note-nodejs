@@ -21,7 +21,7 @@ require('./config/passport');
 
 // configuration ===============================================================
 mongoose.connect(db.remoteUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 
 var app = express();
 
@@ -50,7 +50,7 @@ app.use('/users', users);
 
 // Start the server
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.listen(port, ipaddress, function() {
   // Do your stuff
 });
