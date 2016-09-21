@@ -20,7 +20,7 @@ var db = require('./config/db');
 require('./config/passport');
 
 // configuration ===============================================================
-mongoose.connect(db.localUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
+mongoose.connect(db.remoteUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)
 mongoose.set('debug', true);
 
 var app = express();
